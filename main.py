@@ -38,7 +38,11 @@ def post(caption, username="", password=""):
     bot = instabot.Bot()
     bot.login(username=username, password=password)
     # cleanup before posting
-    os.remove('post.jpg.REMOVE_ME')
+    try:
+        os.remove('post.jpg.REMOVE_ME')
+    except FileNotFoundError:
+        print('nothing to clear.. for this time')
+        pass
     bot.upload_photo('post.jpg', caption=caption)
     # after upload this file is renamed as 'post.jpg.REMOVE_ME' for some reason
 
